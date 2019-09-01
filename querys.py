@@ -146,7 +146,7 @@ OPERATIONS_BY_MODEL = {
 
     #  IMPORTANT: This model is dor crawler data migration about amazon products this model is at marketplace app
     'CRAWLER_PRODUCT': {
-        'CREATE': """CREATE TABLE marketplace_crawled_amazon_product (
+        'CREATE': """CREATE TABLE marketplace_crawledamazonproduct (
             id          serial PRIMARY KEY,
             title       varchar(2056),
             product_url         varchar(2056),
@@ -156,9 +156,9 @@ OPERATIONS_BY_MODEL = {
             crawl_time timestamp,
             category_code integer 
         );""",
-        'SELECT': 'SELECT title, product_url, listing_url, price, primary_img, crawl_time, category_code FROM marketplace_crawled_amazon_product;',
-        'INSERT': insert_sql('marketplace_crawled_amazon_product', MODEL_ATTRS["CRAWLER_PRODUCT"]),
-        'DELETE': drop_table_sql('marketplace_crawled_amazon_product'),
-        'COUNT': count_rows_sql('marketplace_crawled_amazon_product')
+        'SELECT': 'SELECT title, product_url, listing_url, price, primary_img, crawl_time, category_code FROM marketplace_crawledamazonproduct;',
+        'INSERT': insert_sql('marketplace_crawledamazonproduct', MODEL_ATTRS["CRAWLER_PRODUCT"]),
+        'DELETE': drop_table_sql('marketplace_crawledamazonproduct'),
+        'COUNT': count_rows_sql('marketplace_crawledamazonproduct')
      },
 }

@@ -7,9 +7,9 @@ CRAWLER_DATABASES_CONFIG = {
         'password': 'provacrawler123'
     },
     'secondary': {
-        'user': 'UB_PUBLICO_USER',
+        'user': 'ub_publico_user',
         'host': '127.0.0.1',
-        'database': 'UB_PUBLICO',
+        'database': 'ub_publico',
         'port': '5432',
         'password': 'UBpublic2019'
     }
