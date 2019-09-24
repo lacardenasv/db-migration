@@ -35,7 +35,7 @@ MODEL_ATTRS = {
     'VISITED_PRODUCT': '( "asin", "store", "name", "picture", "weight", "height", "length", "width", "weight_unit", "package_height", "package_length", "package_width", "size_unit", "total_price", "total_unit_price", "quantity", "discount", "cupon", "original_price", "date_added", "last_modified")',
 
     #  IMPORTANT: This model is dor crawler data migration about amazon products this model is at marketplace app
-    'CRAWLER_PRODUCT': '("title" ,"product_url", "listing_url" ,"price" ,"primary_img" ,"crawl_time" ,"category_code")',
+    'CRAWLER_PRODUCT': '("title" ,"product_url", "listing_url" ,"price" ,"primary_img" ,"crawl_time" ,"category_code", "category", "features", "asin", "dimensions", "weight", "shipping_weight", "package_dimensions", "package_weight")',
 }
 
 
@@ -154,9 +154,17 @@ OPERATIONS_BY_MODEL = {
             price       varchar(128),
             primary_img varchar(2056),
             crawl_time timestamp,
-            category_code integer 
+            category_code integer,
+            asin varchar(256) null,
+            category varchar(256),
+            features text[] null default '{}',
+            dimensions jsonb DEFAULT '{}' NULL, 
+            weight double precision NULL,
+            shipping_weight double precision NULL,
+            package_dimensions jsonb DEFAULT '{}' NULL,
+            package_weight double precision NULL
         );""",
-        'SELECT': 'SELECT title, product_url, listing_url, price, primary_img, crawl_time, category_code FROM marketplace_crawledamazonproduct;',
+        'SELECT': 'SELECT title, product_url, listing_url, price, primary_img, crawl_time, category_code, category, features, asin, dimensions, weight, shipping_weight, package_dimensions, package_weight FROM marketplace_crawledamazonproduct;',
         'INSERT': insert_sql('marketplace_crawledamazonproduct', MODEL_ATTRS["CRAWLER_PRODUCT"]),
         'DELETE': drop_table_sql('marketplace_crawledamazonproduct'),
         'COUNT': count_rows_sql('marketplace_crawledamazonproduct')

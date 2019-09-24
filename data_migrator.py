@@ -1,4 +1,6 @@
 import datetime
+import json
+
 from postgres_db_connection import PostgresDBConnection
 from settings import CRAWLER_DATABASES_CONFIG
 from sqlite_db_connection import SQLiteDBConnection
@@ -29,12 +31,20 @@ class CrawlerDataMigrator(object):
         self.postgres_conn_primary.connect()
         self.postgres_conn_secondary.connect()
 
+    @staticmethod
+    def dict_to_json(row):
+        row = list(row)
+        row[10] = json.dumps(row[10])
+        row[13] = json.dumps(row[13])
+        return row
+
     def migrate_data(self):
         self.data_bases_init()
         self.postgres_conn_secondary.delete_tables()
         self.postgres_conn_secondary.create_tables()
         records, count_records = self.postgres_conn_primary.fetch_model_data('CRAWLER_PRODUCT')
-        self.postgres_conn_secondary.insert_model_data('CRAWLER_PRODUCT', records)
+        casting_records = list(map(CrawlerDataMigrator.dict_to_json, records))
+        self.postgres_conn_secondary.insert_model_data('CRAWLER_PRODUCT', casting_records)
 
 
 if __name__ == '__main__':
