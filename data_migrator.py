@@ -1,6 +1,6 @@
 import datetime
 import json
-
+import logging
 from postgres_db_connection import PostgresDBConnection
 from settings import CRAWLER_DATABASES_CONFIG
 from sqlite_db_connection import SQLiteDBConnection
@@ -45,6 +45,8 @@ class CrawlerDataMigrator(object):
         records, count_records = self.postgres_conn_primary.fetch_model_data('CRAWLER_PRODUCT')
         casting_records = list(map(CrawlerDataMigrator.dict_to_json, records))
         self.postgres_conn_secondary.insert_model_data('CRAWLER_PRODUCT', casting_records)
+        inserted_rows = self.postgres_conn_secondary.count_rows_in_table('CRAWLER_PRODUCT')
+        logging.warning('Crawler data migration Success!') if inserted_rows == count_records else logging.error('Crawler data migration failed!')
 
 
 if __name__ == '__main__':

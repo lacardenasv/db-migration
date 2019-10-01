@@ -5,11 +5,11 @@ from psycopg2 import extras
 
 from querys import OPERATIONS_BY_MODEL, ALTER_AND_CREATE_INDEX_BY_APP
 
-HOST = 'localhost'
-DATABASE = 'UB_PUBLICO'
-PASSWORD = 'UBpublic2019'
-DATABASE_USER = 'UB_PUBLICO_USER'
-PORT = 5432
+HOST = ''
+DATABASE = ''
+PASSWORD = ''
+DATABASE_USER = ''
+PORT = ''
 
 
 class PostgresDBConnection(object):
